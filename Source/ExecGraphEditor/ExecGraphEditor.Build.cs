@@ -10,6 +10,10 @@ public class ExecGraphEditor : ModuleRules
             new string[]
             {
                 "Core",
+                "GameplayTags",
+                "AssetTools", 
+                "UnrealEd",
+                "GraphEditor"
             }
         );
 
@@ -19,7 +23,8 @@ public class ExecGraphEditor : ModuleRules
                 "CoreUObject",
                 "Engine",
                 "Slate",
-                "SlateCore"
+                "SlateCore",
+                "ExecGraph"
             }
         );
     }
