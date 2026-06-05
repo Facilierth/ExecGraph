@@ -25,7 +25,7 @@ public class ExecGraph : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "ExecGraphRuntime",
+				"Core", "ExecGraphRuntime", "GameplayTags"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
