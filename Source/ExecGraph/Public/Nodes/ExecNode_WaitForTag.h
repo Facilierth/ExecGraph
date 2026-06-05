@@ -26,6 +26,11 @@ public:
 	
 	UPROPERTY(EditAnywhere, Category = "Logic")
 	int32 TargetValue; 
+	
+	virtual TArray<FName> GetOutputPinNames() const override
+	{
+		return { FName("Completed") };
+	}
 
 protected:
 	virtual void OnExecuted(UExecContext* Context, const FExecExecutionEntry& Entry) override;

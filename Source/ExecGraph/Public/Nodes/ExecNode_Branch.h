@@ -16,7 +16,12 @@ public:
 		ValueToCompare = 1;
 		ComparisonType = EComparisonType::GreaterThanOrEqualTo;
 	}
-
+	
+	virtual TArray<FName> GetOutputPinNames() const override
+	{
+		return { FName("True"), FName("False") };
+	}
+	
 	UPROPERTY(EditAnywhere, Category = "Logic")
 	FGameplayTag Tag;
     

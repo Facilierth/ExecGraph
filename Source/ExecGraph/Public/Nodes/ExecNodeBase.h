@@ -27,7 +27,11 @@ public:
 	TMap<FName, UExecNodeBase*> Outputs;
 
 	virtual void ExecuteNode(UExecContext* Context, const FExecExecutionEntry& Entry) override final;
-
+	
+    virtual TArray<FName> GetOutputPinNames() const
+    {
+        return { FName("Out") };
+    }
 protected:
 	virtual void OnExecuted(UExecContext* Context, const FExecExecutionEntry& Entry);
 
