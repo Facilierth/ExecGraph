@@ -10,6 +10,12 @@ public:
     virtual void StartupModule() override;
     virtual void ShutdownModule() override;
 
+    static const TArray<UClass*>& GetCachedNodeClasses();
+
 private:
+    static void RebuildNodeCache();
+
     TArray<TSharedRef<IAssetTypeActions>> RegisteredAssetActions;
+    
+    static TArray<UClass*> CachedNodeClasses;
 };
