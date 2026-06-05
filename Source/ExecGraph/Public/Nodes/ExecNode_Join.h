@@ -19,6 +19,13 @@ public:
 	{
 		return { FName("Completed") };
 	}
+	
+#if WITH_EDITOR
+	virtual FLinearColor GetNodeColor() const
+	{
+		return FLinearColor::Blue;
+	}
+#endif
 protected:
 	virtual void OnExecuted(UExecContext* Context, const FExecExecutionEntry& Entry) override;
 };

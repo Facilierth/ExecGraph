@@ -32,6 +32,14 @@ public:
     {
         return { FName("Out") };
     }
+	
+#if WITH_EDITOR
+	virtual FLinearColor GetNodeColor() const
+	{
+    	return FLinearColor::Gray;
+	}
+#endif
+	
 protected:
 	virtual void OnExecuted(UExecContext* Context, const FExecExecutionEntry& Entry);
 
