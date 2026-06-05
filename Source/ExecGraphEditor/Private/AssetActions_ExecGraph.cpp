@@ -3,6 +3,7 @@
 
 #include "AssetActions_ExecGraph.h"
 #include "ExecGraphAsset.h"
+#include "ExecGraphAssetEditor.h"
 
 FText FAssetTypeActions_ExecGraph::GetName() const
 {
@@ -26,5 +27,15 @@ uint32 FAssetTypeActions_ExecGraph::GetCategories()
 
 void FAssetTypeActions_ExecGraph::OpenAssetEditor(const TArray<UObject*>& InObjects, TSharedPtr<IToolkitHost> EditWithinLevelEditor)
 {
-	FAssetTypeActions_Base::OpenAssetEditor(InObjects, EditWithinLevelEditor);
+    EToolkitMode::Type Mode = EditWithinLevelEditor.IsValid() ? EToolkitMode::WorldCentric : EToolkitMode::Standalone;
+
+    for (UObject* Obj : InObjects)
+    {
+        if (UExecGraphAsset* ExecAsset = Cast<UExecGraphAsset>(Obj))
+        {
+            // Create the editor toolkit window instance and initialize it!
+            TSharedRef<FExecGraphAssetEditor> NewEditor(new FExecGraphAssetEditor());
+            NewEditor->InitEditor(Mode, EditWithinLevelEditor, ExecAsset);
+        }
+    }
 }
