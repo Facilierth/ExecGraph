@@ -1,0 +1,33 @@
+﻿{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "ExecGraph",
+	"Description": "",
+	"Category": "Other",
+	"CreatedBy": "Katarzyna Jaroszyńska",
+	"CreatedByURL": "facilier.itch.io",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": true,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "ExecGraph",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "ExecGraphEditor",
+			"Type": "Editor",
+			"LoadingPhase": "PostInitEngine"
+		},
+		{
+			"Name": "ExecGraphRuntime",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault"
+		}
+	]
+}
