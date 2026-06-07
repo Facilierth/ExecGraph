@@ -28,10 +28,17 @@ public:
 	virtual FString GetReferencerName() const override { return TEXT("FExecGraphAssetEditor"); }
 
 private:
+	// property sidebar tab
+	TSharedRef<SDockTab> SpawnTab_Details(const FSpawnTabArgs& Args);
+
+	// whenever sb clicks a node on the canvas
+	void OnGraphSelectionChanged(const FGraphPanelSelectionSet& NewSelection);
+
 	void RegisterTabSpawners(const TSharedRef<class FTabManager>& InTabManager) override;
 	void UnregisterTabSpawners(const TSharedRef<class FTabManager>& InTabManager) override;
 	TSharedRef<SDockTab> SpawnTab_GraphCanvas(const FSpawnTabArgs& Args);
 
+	TSharedPtr<IDetailsView> DetailsWidget;
 	UExecGraphAsset* EditingAsset = nullptr;
 	TSharedPtr<SGraphEditor> GraphEditorWidget;
 };
