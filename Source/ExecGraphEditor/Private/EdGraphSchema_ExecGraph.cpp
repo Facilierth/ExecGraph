@@ -1,10 +1,14 @@
 ﻿// Copyright (c) 2026, Jaroszyńska
 
-
 #include "EdGraphSchema_ExecGraph.h"
 
 #include "EdGraphNode_ExecGraph.h"
+#include "ExecGraphConnectionDrawingPolicy.h"
+#include "Layout/SlateRect.h"
 #include "ExecGraphEditor.h"
+#include "EdGraph/EdGraph.h"
+#include "EdGraph/EdGraphSchema.h"
+
 
 struct FExecGraphSchemaAction_NewNode : public FEdGraphSchemaAction
 {
@@ -56,10 +60,14 @@ const FPinConnectionResponse UEdGraphSchema_ExecGraph::CanCreateConnection(const
 
 FLinearColor UEdGraphSchema_ExecGraph::GetPinTypeColor(const FEdGraphPinType& PinType) const
 {
-	return Super::GetPinTypeColor(PinType);
+	return FLinearColor::White;
 }
 
 
+FConnectionDrawingPolicy* UEdGraphSchema_ExecGraph::CreateConnectionDrawingPolicy(int32 InBackLayerID, int32 InFrontLayerID, float InZoomFactor, const FSlateRect& InClippingRect, FSlateWindowElementList& InDrawElements, UEdGraph* InGraphObj) const
+{
+	return new FExecGraphConnectionDrawingPolicy(InBackLayerID, InFrontLayerID, InZoomFactor, InClippingRect, InDrawElements, InGraphObj);
+}
 void UEdGraphSchema_ExecGraph::GetGraphContextActions(FGraphContextMenuBuilder& ContextMenuBuilder) const
 {
 	FText Category = NSLOCTEXT("ExecGraph", "NodesCategory", "Exec Graph Logic");

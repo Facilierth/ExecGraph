@@ -19,4 +19,5 @@ public:
 
 	// what color should our execution pins be? (most important question)
 	virtual FLinearColor GetPinTypeColor(const FEdGraphPinType& PinType) const override;
+	virtual FConnectionDrawingPolicy* CreateConnectionDrawingPolicy(int32 InGraphObjVersion, int32 InSubpartIndex, float InZoomFactor, const class FSlateRect& InClippingRect, class FSlateWindowElementList& InDrawElements, class UEdGraph* InGraph) const override;
 };
