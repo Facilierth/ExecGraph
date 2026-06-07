@@ -11,13 +11,15 @@ void UEdGraphNode_ExecGraph::AllocateDefaultPins()
 {
     if (!RuntimeNode) return;
     
-    CreatePin(EGPD_Input, TEXT("Exec"), FName(), TEXT("In"));
+    const FName ExecCategory = UEdGraphSchema_K2::PC_Exec;
+    const FName CustomSubCategory = TEXT("CustomPin");
+    
+    CreatePin(EGPD_Input, ExecCategory, CustomSubCategory, TEXT("In"));
     
     TArray<FName> OutputPinNames = RuntimeNode->GetOutputPinNames();
-    
     for (const FName& PinName : OutputPinNames)
     {
-        CreatePin(EGPD_Output, TEXT("Exec"), FName(), PinName);
+        CreatePin(EGPD_Output, ExecCategory, CustomSubCategory, PinName);
     }
 }
 

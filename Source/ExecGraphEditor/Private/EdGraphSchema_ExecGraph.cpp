@@ -22,9 +22,19 @@ struct FExecGraphSchemaAction_NewNode : public FEdGraphSchemaAction
         NewVisualNode->InitializeNode(NewRuntimeNode);
         NewVisualNode->NodePosX = Location.X;
         NewVisualNode->NodePosY = Location.Y;
+    	
+    	NewVisualNode->CreateNewGuid();
+    	NewVisualNode->PostPlacedNewNode();
+    	
         NewVisualNode->AllocateDefaultPins();
-        
-        ParentGraph->AddNode(NewVisualNode, bSelectNewNode, true);
+    	NewVisualNode->SetEnabledState(ENodeEnabledState::Enabled);
+    	
+    	ParentGraph->AddNode(NewVisualNode, bSelectNewNode, true);
+    	
+    	if (FromPin != nullptr)
+    	{
+    		NewVisualNode->GetSchema()->TryCreateConnection(FromPin, NewVisualNode->Pins[0]);
+    	}
         return NewVisualNode;
     }
 };

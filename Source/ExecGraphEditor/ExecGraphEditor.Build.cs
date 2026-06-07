@@ -24,7 +24,8 @@ public class ExecGraphEditor : ModuleRules
                 "Engine",
                 "Slate",
                 "SlateCore",
-                "ExecGraph"
+                "ExecGraph",
+                "BlueprintGraph",
             }
         );
     }
