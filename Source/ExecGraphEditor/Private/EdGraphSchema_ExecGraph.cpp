@@ -46,16 +46,24 @@ struct FExecGraphSchemaAction_NewNode : public FEdGraphSchemaAction
 const FPinConnectionResponse UEdGraphSchema_ExecGraph::CanCreateConnection(const UEdGraphPin* A,
 	const UEdGraphPin* B) const
 {
-	if (A->GetOwningNode() == B->GetOwningNode())
-	{
-		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Cannot connect a node to itself."));
-	}
-	if (A->Direction == B->Direction)
-	{
-		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Must connect output to input."));
-	}
+	UE_LOG(LogSlate, Verbose, TEXT("A: %s B: %s"), *A->PinName.ToString(), *B->PinName.ToString());
+    if (!A || !B)
+        return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Invalid pins"));
+
+    if (A->GetOwningNode() == B->GetOwningNode())
+        return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Self connection not allowed"));
 	
-	return FPinConnectionResponse(CONNECT_RESPONSE_BREAK_OTHERS_AB, TEXT("Connect"));
+	if (A->Direction == B->Direction)
+		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Must connect output to input."));
+	
+    if (A->PinType.PinCategory != B->PinType.PinCategory)
+        return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Incompatible pin types"));
+
+	// if sb dragged FROM an output, that output must drop its old links when connecting to B
+	if (A->Direction == EGPD_Output)
+		return FPinConnectionResponse(CONNECT_RESPONSE_BREAK_OTHERS_A, TEXT("Connect and replace old output link"));
+	
+	return FPinConnectionResponse(CONNECT_RESPONSE_BREAK_OTHERS_B, TEXT("Connect and replace old output link"));
 }
 
 FLinearColor UEdGraphSchema_ExecGraph::GetPinTypeColor(const FEdGraphPinType& PinType) const
